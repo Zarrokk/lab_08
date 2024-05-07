@@ -294,6 +294,56 @@ zarok@ubuntu:~/projects/tp_labs/tp_projects/lab03/solver_application$ cmake --bu
 [100%] Built target main
 
 ```
+### Создать .github/workflows/test.sh и .github/workflows/action.yml
+```
+$ sudo mkdir .github/
+$ sudo mkdir .github/workflows
+```
+### test.sh
+```
+root=./
+cmake --build $root/formatter_lib
+cmake --build $root/formatter_ex_lib 
+cmake --build $root/hello_world_application 
+cmake --build $root/solver_lib
+cmake --build $root/solver_application
+
+$root/hello_world_application/_build/main
+echo -e '1\n\2\n3' | $root/solver_application/_build/main
+```
+### action.yml
+```
+name: tp-lab-actions
+run-name: ${{ github.actor }} is running TPLab04
+on: [push]
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test project
+        run: ./.github/workflows/test.sh
+```
+```
+zarok@ubuntu:~/projects/tp_labs/tp_projects/lab04/lab03/.github/workflows$ sudo chmod +x ../../hello_world_application/_build/main
+zarok@ubuntu:~/projects/tp_labs/tp_projects/lab04/lab03/.github/workflows$ sudo chmod +x ../../solver_application/_build/main
+zarok@ubuntu:~/projects/tp_labs/tp_projects/lab04/lab03/.github/workflows$ cd ../..
+zarok@ubuntu:~/projects/tp_labs/tp_projects/lab04/lab03$ ./.github/workflows/test.sh
+Error: could not load cache
+Error: could not load cache
+Error: could not load cache
+Error: could not load cache
+Error: could not load cache
+-------------------------
+hello, world!
+-------------------------
+-------------------------
+x1 = -0.000000
+-------------------------
+-------------------------
+x2 = 0.000000
+-------------------------
+```
 
 
 ## Links
