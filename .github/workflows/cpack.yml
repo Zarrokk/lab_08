@@ -7,7 +7,7 @@ on:
   branches: [master]
 
 jobs: 
- build_Linux:
+ artifact:
 
   runs-on: ubuntu-latest
 
