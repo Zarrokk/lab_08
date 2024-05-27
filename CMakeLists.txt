@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.29)
-
 project(solver)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -19,7 +17,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/solver_lib
 
 target_link_libraries(solver formatter_ex_lib formatter_lib solver_lib)
 
-# Инструкции для инсталляции
 install(TARGETS solver
     RUNTIME DESTINATION bin
 )
